@@ -5,6 +5,8 @@ import subscriptionRouter from './routes/subscription.routes.js';
 import userRouter from './routes/user.routes.js';
 import authRouter from './routes/auth.routes.js';
 
+import { connectDB } from './database/mongoDB.js';
+
 
 const app = express();
 // creating route end point
@@ -21,8 +23,11 @@ app.get("/", (req, res) => {
     res.send('Welcome to the subscription Tracker API')
 })
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
+    
     console.log("Server started at http://localhost:" + PORT);
+
+    await connectDB();
 })
 
 
