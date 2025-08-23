@@ -9,9 +9,15 @@ import { connectDB } from './database/mongoDB.js';
 
 import errorMiddleware from './middlewares/error.middleware.js';
 import cookieParser from 'cookie-parser';
+import arcjetMiddleware from './middlewares/arcjet.middleware.js';
 
 
 const app = express();
+
+
+
+// Arcjet Middleware - protect all routes
+app.use(arcjetMiddleware);
 
 //express middlewares
 
@@ -31,7 +37,6 @@ app.use('/api/v1/subscriptions', subscriptionRouter);
 // Error middleware
 
 app.use(errorMiddleware);
-
 
 
 app.get("/", (req, res) => {
