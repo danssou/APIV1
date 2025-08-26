@@ -23,16 +23,29 @@ export const sendReminders = serve(async(context) => {
         console.log(`Renewal date has passed for subscription ${subcriptionID}. Stopping workflow. `);
         return;
     }
+
+    for (const daysBefore of REMINDERS) {
+    const reminderDate  = renewalDate.subtract(daysBefore, 'day');
+
+    if (reminderDate.isAfter(dayjs())){
+
+
+    }
+
+
 });
 
 
 
-for (const daysBefore of REMINDERS) {
-    co
-}
+
 
 const fetchSubscription = async (context, subcriptionID) =>{
     return await context.run('get subscription', () => {
         return Subscription.findById(subcriptionID).populate('user', 'name email');
     })
+}
+
+sleepUntilReminder = async (context, label, date) => {
+    console.log(`Sleeping until ${label} reminder at ${date}`);
+    await context.sleepUntil(label, date.toDate());
 }
