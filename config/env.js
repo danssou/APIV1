@@ -13,6 +13,7 @@ export const {
     QSTASH_NEXT_SIGNING_KEY,
     QSTASH_CURRENT_SIGNING_KEY,
     QSTASH_TOKEN,
-    QSTASH_URL
+    QSTASH_URL,
+    SERVER_URL
 } = process.env;
 
