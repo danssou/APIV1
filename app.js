@@ -32,7 +32,7 @@ app.use(cookieParser());
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/users', userRouter);
 app.use('/api/v1/subscriptions', subscriptionRouter);
-app.use('/api/v1/subscriptions', workflowROUTER);
+app.use('/api/v1/workflows', workflowROUTER);
 
 
 

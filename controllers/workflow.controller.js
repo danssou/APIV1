@@ -12,15 +12,15 @@ const REMINDERS = [7, 5, 2, 1];
 
 
 export const sendReminders = serve(async(context) => {
-    const {subcriptionID} = context.requestPayload;
-    const subscription = await fetchSubscription(context, subcriptionID);
+    const {subscriptionID} = context.requestPayload;
+    const subscription = await fetchSubscription(context, subscriptionID);
 
     if(!subscription || subscription.status !== 'active' ) return;
 
     const renewalDate = dayjs(subscription.renewalDate);
 
     if (renewalDate.isBefore(dayjs())) {
-        console.log(`Renewal date has passed for subscription ${subcriptionID}. Stopping workflow. `);
+        console.log(`Renewal date has passed for subscription ${subscriptionID}. Stopping workflow. `);
         return;
     }
 
@@ -30,7 +30,6 @@ export const sendReminders = serve(async(context) => {
     if (reminderDate.isAfter(dayjs())){
 
         await sleepUntilReminder(context, `Reminder ${daysBefore} ${daysBefore > 1 ? 'days': 'day'}  before`)
-
     }
 
     await triggerReminder(context, `Reminder ${daysBefore} ${daysBefore > 1 ? 'days': 'day'}  before`);
@@ -42,9 +41,9 @@ export const sendReminders = serve(async(context) => {
 
 
 
-const fetchSubscription = async (context, subcriptionID) =>{
+const fetchSubscription = async (context, subscriptionID) =>{
     return await context.run('get subscription', async () => {
-        return Subscription.findById(subcriptionID).populate('user', 'name email');
+        return Subscription.findById(subscriptionID).populate('user', 'name email');
     })
 }
 
