@@ -74,10 +74,6 @@ See `.env.development.local` for required variables:
 
 - `PORT`, `SERVER_URL`, `DB_URI`, `JWT_SECRET`, `ARCJET_KEY`, `QSTASH_TOKEN`, etc.
 
-## License
-
-MIT
-
----
+## Other
 
 Feel free to contribute or open issues for improvements!

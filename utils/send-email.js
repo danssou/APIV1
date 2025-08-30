@@ -16,7 +16,7 @@ const sendReminderEmail = async ({to, type, subscription}) => {
             subscriptionName: subscription.name,
             renewalDate:dayjs(subscription.renewalDate).format('MMM D, YYYY'),
             planName: subscription.name,
-            price: `${subscription.currency} ${subscription.payementMethod} (${subscription.frequenccy})`,
+            price: `${subscription.currency} ${subscription.price} (${subscription.frequency})`,
             paymentMethod: subscription.payementMethod ,
         }
 
@@ -31,12 +31,18 @@ const sendReminderEmail = async ({to, type, subscription}) => {
             html:message,
         }
 
-        transporter.sendMail(mailOptions, (error, info) => {
+        try {
+            
+            transporter.sendMail(mailOptions, (error, info) => {
             if(error) return console.log(error, 'Error sending email');
             
             console.log("Message sent:", info.response);
 
         })
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
 }
 
 export default sendReminderEmail;
