@@ -14,6 +14,7 @@ export const {
     QSTASH_CURRENT_SIGNING_KEY,
     QSTASH_TOKEN,
     QSTASH_URL,
-    SERVER_URL
+    SERVER_URL,
+    GOOGLE_PASS  // for email with nodemailer
 } = process.env;
 
