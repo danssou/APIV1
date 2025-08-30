@@ -34,7 +34,7 @@ A Node.js REST API for managing user subscriptions, reminders, and authenticatio
 1. Clone the repository:
 
    ```sh
-   git clone <repo-url>
+   git clone https://github.com/danssou/APIV1.git
    cd APIV1
    ```
 
