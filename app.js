@@ -15,7 +15,13 @@ import workflowROUTER from './routes/workflow.route.js';
 
 const app = express();
 
-
+// //Skip Arcjet for /api/v1/subscriptions/upcoming-renewals
+// app.use((req, res, next) => {
+//     if (req.path === '/api/v1/subscriptions/upcoming-renewals') {
+//         return next();
+//     }
+//     arcjetMiddleware(req, res, next);
+// });
 
 // Arcjet Middleware - protect all routes
 app.use(arcjetMiddleware);

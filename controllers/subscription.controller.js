@@ -60,7 +60,7 @@ export const GetAllSubscriptions = async (req, res, next) => {
     }
 }
 
-
+//sbuscription details
 export const GetSubscriptionDetails = async (req, res, next) => {
     const { id } = req.params;
 
@@ -75,10 +75,10 @@ export const GetSubscriptionDetails = async (req, res, next) => {
 		next(error)
 	}
 
-
 }
 
 
+// update
 export const UpdateSubscription = async (req, res, next) => {
     const {id} = req.params;
 
@@ -94,6 +94,74 @@ export const UpdateSubscription = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
+}
 
+
+// cancel
+export const CancelSubscription = async (req, res, next) => {
+    const {id} = req.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Invalid subscription Id" });
+    }
+
+    try {
+        const cancelledSubscrition = await Subscription.findByIdAndUpdate(id, {status:"cancelled"}, {new: true});
+        res.status(200).json({success:true, data: cancelledSubscrition, message: "Subscription cancelled successfully"})
+    } catch (error) {
+        next(error)
+    }
+}
+
+
+
+
+
+
+// delete
+export const DeleteSubscription = async (req, res, next) => {
+    const {id} = req.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ success: false, message: "Invalid subscription Id" });
+    }
+
+    try {
+        await Subscription.findByIdAndDelete(id);
+        res.status(200).json({success:true, message: "Subscription deleted successfully"})
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+//upcominp
+
+export const UpcomingRenewals = async (req, res, next) => {
+
+    console.log('GetUpcomingRenewals called')
+
+    const today = new Date();
+
+    const nextMonth = new Date();
+
+    nextMonth.setDate(today.getDate() + 30)
+
+    console.log('today:', today, 'nextMonth:', nextMonth);
+
+    try {
+        const renewals = await Subscription.find({
+            renewalDate: {$gte: today, $lte: nextMonth},
+            status: "active",
+        });
+
+        console.log('renewals:', renewals);
+
+        res.status(200).json({success: true, data: renewals, message: "Details on the way..."})
+
+    } catch (error) {
+        console.error(error);
+        next(error)
+    }
 
 }

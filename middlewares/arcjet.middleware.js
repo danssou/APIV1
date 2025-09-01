@@ -1,13 +1,12 @@
 import aj from "../config/arcjet.js";
 
 
+
 const arcjetMiddleware = async (req, res, next) => {
     try {
-        // Log IP address and request info
-        // console.log('Arcjet Middleware: IP:', req.ip, 'Requested:', 1);
+        console.log('Arcjet Middleware called for:', req.method, req.originalUrl, 'IP:', req.ip);
         const decision = await aj.protect(req, {requested: 1});
-        // Log the full decision object for debugging
-        // console.log('Arcjet Decision:', JSON.stringify(decision, null, 2));
+        console.log('Arcjet Decision:', JSON.stringify(decision, null, 2));
 
         if (decision.isDenied()) {
             if (decision.reason.isRateLimit()) {
